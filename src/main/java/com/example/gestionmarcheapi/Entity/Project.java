@@ -15,4 +15,8 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Tache> tasks;
 
+    @ManyToOne
+    @JoinColumn(name = "idMarket")
+    private Market market;
+
 }

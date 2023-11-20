@@ -1,4 +1,5 @@
     package com.example.gestionmarcheapi.Entity;
+    import com.example.gestionmarcheapi.Entity.Enumerations.StateTask;
     import jakarta.persistence.*;
     import lombok.Data;
     import java.util.Date;

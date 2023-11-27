@@ -21,5 +21,8 @@ public class Commentaire {
     @JoinColumn(name = "idTask")
     private Tache tache;
 
+    @OneToOne
+    private User auteur;
+
 
 }

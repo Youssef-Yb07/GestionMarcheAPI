@@ -17,9 +17,9 @@ public class Market {
     @JoinColumn(name = "idUser")
     private User utilisateur;
 
-    private String statut;
+    //private String statut;
 
-    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL)
-    private List<Project> projets;
+    @OneToOne
+    private Project project;
 
 }

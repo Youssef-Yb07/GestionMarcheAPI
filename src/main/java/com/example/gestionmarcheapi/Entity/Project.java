@@ -1,8 +1,10 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.File;
 import java.util.List;
 
 @Entity
@@ -15,8 +17,13 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Tache> tasks;
 
-    @ManyToOne
-    @JoinColumn(name = "idMarket")
-    private Market market;
+    @JsonIgnore
+    @Column(name = "CDC", columnDefinition = "VARBINARY(max)")
+    private byte[] CDC_file;
+
+    private String fileName;
+
+    @JsonIgnore
+    private String fileType,filePath;
 
 }

@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * @author Yassine Deriouch
- * @project Projet gestion des marchés
- */
 
 @Service
 @Data

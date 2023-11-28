@@ -26,10 +26,7 @@
         @JoinColumn(name = "idProjet")
         private Project project;
 
-        @OneToMany
-        @JoinTable(name="tache_commentaire_association",
-                joinColumns={@JoinColumn(name="idTask")},
-                inverseJoinColumns={@JoinColumn(name="idCommentaire")})
-        private List<Commentaire> commentairesList;
+        @OneToMany(mappedBy = "task")
+        private List<Commentaire> commentaires;
 
     }

@@ -22,4 +22,18 @@ public class User {
     @OneToOne
     @JoinColumn(name ="idRole")
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "idEntreprise")
+    private Entreprise entreprise;
+
+    @ManyToOne
+    @JoinColumn(name = "idService")
+    private Service service;
+
+    @OneToOne
+    @JoinColumn(name = "idCommentaire")
+    private Commentaire commentaire;
+
+
 }

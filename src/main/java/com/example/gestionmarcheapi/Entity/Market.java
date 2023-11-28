@@ -3,8 +3,6 @@ package com.example.gestionmarcheapi.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
 public class Market {
@@ -13,13 +11,15 @@ public class Market {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMarket;
 
-    @ManyToOne
-    @JoinColumn(name = "idUser")
-    private User utilisateur;
+    private String nom;
 
-    //private String statut;
+    private String description;
 
-    @OneToOne
-    private Project project;
+   @ManyToOne
+   @JoinColumn(name = "idEntreprise")
+   private Entreprise entreprise;
 
+   @OneToOne
+   @JoinColumn(name = "idProject")
+   private Project project;
 }

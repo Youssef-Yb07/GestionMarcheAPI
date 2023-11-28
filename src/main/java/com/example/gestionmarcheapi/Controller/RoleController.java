@@ -4,6 +4,8 @@ import com.example.gestionmarcheapi.Entity.Role;
 import com.example.gestionmarcheapi.ExceptionHandler.ExceptionsHandler;
 import com.example.gestionmarcheapi.Service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -32,15 +34,15 @@ public class RoleController {
     private final ExceptionsHandler exceptionsHandler;
 
 
-    @Operation(summary= "save new role")
+    @Operation(summary= "save new role",description = "Ajouter un role dans la base de données")
     @PostMapping(value = "/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
         Role savedRole = roleService.saveRole(role);
-        return new ResponseEntity<>(savedRole, HttpStatus.OK);
+        return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
     }
     
 
-    @Operation(summary= "update existing role")
+    @Operation(summary= "update existing role",description = "Modifier un role existant dans la base de données")
     @PutMapping(value = "/update/{idRole}")
     public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable int idRole){
         Role updatedRole = roleService.updateRole(role,idRole);
@@ -48,7 +50,7 @@ public class RoleController {
     }
 
 
-    @Operation(summary= "get one role")
+    @Operation(summary= "get one role",description = "Récupérer un role existant dans la base de données")
     @GetMapping(value = "/get/{id}")
     public ResponseEntity<Role> getOneRole(@PathVariable int id){
         Role role = roleService.getRole(id);
@@ -56,14 +58,14 @@ public class RoleController {
     }
 
 
-    @Operation(summary= "get all existing roles")
+    @Operation(summary= "get all existing roles",description = "Récupérer tous les roles existants dans la base de données")
     @GetMapping(value = "/get/all")
     public ResponseEntity<List<Role>> getAllRoles(){
         List<Role> rolesList = roleService.getAllRoles();
         return new ResponseEntity<>(rolesList, HttpStatus.OK);
     }
 
-    @Operation(summary = "delete one role")
+    @Operation(summary = "delete one role", description = "Supprimer un role existant dans la base de données")
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Role> deleteOneRole(@PathVariable int id) {
         Role role = roleService.deleteRole(id);
@@ -71,7 +73,7 @@ public class RoleController {
     }
 
 
-    @Operation(summary = "delete all existing roles")
+    @Operation(summary = "delete all existing roles", description = "Supprimer tous les roles existants dans la base de données")
     @DeleteMapping(value = "/delete/all")
     public ResponseEntity<List<Role>> deleteAllRoles() {
         List<Role> rolesList = roleService.deleteAllRoles();

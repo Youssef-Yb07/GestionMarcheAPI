@@ -31,14 +31,14 @@ public class UserController {
     private final UserService userService;
     private final ExceptionsHandler exceptionsHandler;
 
-    @Operation(summary= "save new user")
+    @Operation(summary= "save new user",description = "Ajouter un nouveau utilisateur dans la base de données")
     @PostMapping(value = "/save")
     public ResponseEntity<User> savedUser(@RequestBody User user){
         User savedUser = userService.saveUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
-    @Operation(summary= "update existing user")
+    @Operation(summary= "update existing user",description = "Modifier un utilisateur existant dans la base de données")
     @PutMapping(value = "/update/{idUser}")
     public ResponseEntity<User> updateUser(@PathVariable Integer idUser, @RequestBody User user){
         User updateUser = userService.updateUser(idUser,user);
@@ -46,7 +46,7 @@ public class UserController {
     }
 
 
-    @Operation(summary= "get one user")
+    @Operation(summary= "get one user",description = "Récupérer un utilisateur existant dans la base de données")
     @GetMapping(value = "/get/{idUser}")
     public ResponseEntity<User> getOneUser(@PathVariable Integer idUser){
         User getUser = userService.getUser(idUser);
@@ -54,7 +54,7 @@ public class UserController {
     }
 
 
-    @Operation(summary= "get all existing users")
+    @Operation(summary= "get all existing users",description = "Récupérer tous les utilisateurs existants dans la base de données")
     @GetMapping(value = "/get/all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> getAllUser = userService.getAllUsers();
@@ -62,7 +62,7 @@ public class UserController {
     }
 
 
-    @Operation(summary= "delete one user")
+    @Operation(summary= "delete one user",description = "Supprimer un utilisateur existant dans la base de données")
     @DeleteMapping(value = "/delete/{idUser}")
     public ResponseEntity<User> deleteOneUser(@PathVariable Integer idUser){
         User deleteUser = userService.deleteUser(idUser);
@@ -70,7 +70,7 @@ public class UserController {
     }
 
 
-    @Operation(summary= "delete all existing users")
+    @Operation(summary= "delete all existing users",description = "Supprimer tous les utilisateurs existants dans la base de données")
     @DeleteMapping(value = "/delete/all")
     public ResponseEntity<List<User>> deleteAllUsers(){
         List<User> deleteAllUsers = userService.deleteAllUsers();

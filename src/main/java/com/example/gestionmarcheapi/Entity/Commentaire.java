@@ -19,10 +19,10 @@ public class Commentaire {
 
     @ManyToOne
     @JoinColumn(name = "idTask")
-    private Tache tache;
+    private Tache task;
 
     @OneToOne
-    private User auteur;
+    private User employee;
 
 
 }

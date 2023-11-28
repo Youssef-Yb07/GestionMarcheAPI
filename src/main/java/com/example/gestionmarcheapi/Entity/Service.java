@@ -5,11 +5,6 @@ import lombok.Data;
 
 import java.util.List;
 
-/**
- * @author Yassine Deriouch
- * @project Projet gestion des marchés
- */
-
 @Entity
 @Data
 @Table
@@ -22,15 +17,14 @@ public class Service {
     @Column
     private String libelle;
 
-    @OneToMany
-    @JoinTable(name="Service_user_association",
-            joinColumns={@JoinColumn(name="idService")},
-            inverseJoinColumns={@JoinColumn(name="idUser")})
-    private List<User> usersList;
+    @OneToMany(mappedBy = "service")
+    private List<User> employees;
 
-    @OneToMany
-    @JoinTable(name="Service_marche_association",
-            joinColumns={@JoinColumn(name="idService")},
-            inverseJoinColumns={@JoinColumn(name="idMarket")})
-    private List<Market> ListMarches;
+    @OneToOne
+    @JoinColumn(name = "idChefService")
+    private User chefService;
+
+    @ManyToOne
+    @JoinColumn(name = "idEntreprise")
+    private Entreprise entreprise;
 }

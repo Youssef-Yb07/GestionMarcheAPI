@@ -15,13 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author Yassine Deriouch
- * @project Projet gestion des marchés
- */
-
 @RestController
-@Data
 @RequiredArgsConstructor
 @CrossOrigin("*")
 @Tag(name = "Users", description = "gestion des utilisateurs")

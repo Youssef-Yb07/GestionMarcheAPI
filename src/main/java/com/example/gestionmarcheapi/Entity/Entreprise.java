@@ -31,8 +31,5 @@ public class Entreprise {
     private User directeur;
 
     @OneToMany(mappedBy = "entreprise")
-    private List<Service> Services;
-
-    @OneToMany(mappedBy = "entreprise")
     private List<Market> markets;
 }

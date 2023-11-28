@@ -17,12 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author Yassine Deriouch
- * @project Projet gestion des marchés
- */
-
-@Data
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "roles")

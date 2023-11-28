@@ -27,7 +27,7 @@ public class RoleService {
      * @param role
      * @return
      */
-    @Transactional
+
     public Role saveRole(Role role) throws EntityNotFoundException {
         role.setIdRole(role.getIdRole());
         role.setLibelle(role.getLibelle());
@@ -35,7 +35,6 @@ public class RoleService {
         return modelMapper.map(saved, Role.class);
     }
 
-    @Transactional
     public Role updateRole(Role role, int idRole) throws EntityNotFoundException {
         Optional<Role> roleOptional = roleRepository.findById(idRole);
         if (roleOptional.isPresent()) {
@@ -55,7 +54,6 @@ public class RoleService {
      * @param id
      * @return
      */
-    @Transactional
     public Role getRole(int id) {
         Optional<Role> role = roleRepository.findById(id);
         if(role.isPresent()) {
@@ -71,7 +69,6 @@ public class RoleService {
      * @return
      * @throws EntityNotFoundException
      */
-    @Transactional(readOnly = true)
     public List<Role> getAllRoles() throws EntityNotFoundException {
         return roleRepository.findAll().stream().map(element -> modelMapper.map(element, Role.class))
                 .collect(Collectors.toList());
@@ -84,7 +81,7 @@ public class RoleService {
      * @return
      * @throws EntityNotFoundException
      */
-    @Transactional
+
     public Role deleteRole(int id) {
         Optional<Role> roleOptional = roleRepository.findById(id);
         if (roleOptional.isPresent()) {
@@ -102,7 +99,6 @@ public class RoleService {
      * @return
      * @throws EntityNotFoundException
      */
-    @Transactional
     public List<Role> deleteAllRoles() {
         List<Role> roleList = roleRepository.findAll();
         if (!roleList.isEmpty()) {

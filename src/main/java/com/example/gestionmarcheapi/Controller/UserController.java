@@ -1,13 +1,9 @@
 package com.example.gestionmarcheapi.Controller;
 
 import com.example.gestionmarcheapi.Entity.User;
-import com.example.gestionmarcheapi.ExceptionHandler.ExceptionsHandler;
 import com.example.gestionmarcheapi.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +19,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final ExceptionsHandler exceptionsHandler;
 
     @Operation(summary= "save new user",description = "Ajouter un nouveau utilisateur dans la base de données")
     @PostMapping(value = "/save")
@@ -39,7 +34,6 @@ public class UserController {
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-
     @Operation(summary= "get one user",description = "Récupérer un utilisateur existant dans la base de données")
     @GetMapping(value = "/get/{idUser}")
     public ResponseEntity<User> getOneUser(@PathVariable Integer idUser){
@@ -47,14 +41,12 @@ public class UserController {
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
-
     @Operation(summary= "get all existing users",description = "Récupérer tous les utilisateurs existants dans la base de données")
     @GetMapping(value = "/get/all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> getAllUser = userService.getAllUsers();
         return new ResponseEntity<>(getAllUser, HttpStatus.OK);
     }
-
 
     @Operation(summary= "delete one user",description = "Supprimer un utilisateur existant dans la base de données")
     @DeleteMapping(value = "/delete/{idUser}")

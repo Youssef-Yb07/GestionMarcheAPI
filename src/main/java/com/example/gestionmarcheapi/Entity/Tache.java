@@ -1,5 +1,6 @@
     package com.example.gestionmarcheapi.Entity;
     import com.example.gestionmarcheapi.Entity.Enumerations.StateTask;
+    import com.fasterxml.jackson.annotation.JsonBackReference;
     import jakarta.persistence.*;
     import lombok.Data;
     import java.util.Date;
@@ -24,6 +25,8 @@
 
         @ManyToOne
         @JoinColumn(name = "idProjet")
+        //jsonBackReference pour eviter la boucle infinie lors de la serialisation
+        @JsonBackReference
         private Project project;
 
         @OneToMany(mappedBy = "task")

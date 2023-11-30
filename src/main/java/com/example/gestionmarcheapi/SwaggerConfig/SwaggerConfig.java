@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
                 version = "1.0",
                 description = "API pour la gestion des marchés"
         ),
-        servers = @Server(url = "http://localhost:8081", description = "Local server for development")
+        servers = @Server(url = "http://localhost:8081/api/v1", description = "Local server for development")
 )
 public class SwaggerConfig {}

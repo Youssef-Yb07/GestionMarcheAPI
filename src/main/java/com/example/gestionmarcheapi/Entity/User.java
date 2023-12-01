@@ -1,7 +1,10 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -23,9 +26,13 @@ public class User {
     @JoinColumn(name ="idRole")
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "idEntreprise")
-    private Entreprise entreprise;
+    @ManyToMany
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "idEmployee"),
+            inverseJoinColumns = @JoinColumn(name = "idProject"))
+    @JsonIgnore
+    private List<Project> projects;
 
     @ManyToOne
     @JoinColumn(name = "idService")

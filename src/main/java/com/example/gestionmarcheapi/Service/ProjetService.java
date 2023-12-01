@@ -1,9 +1,10 @@
 package com.example.gestionmarcheapi.Service;
 
+import com.example.gestionmarcheapi.Entity.*;
+import com.example.gestionmarcheapi.Entity.DTO.ProjectDTO;
 import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
-import com.example.gestionmarcheapi.Entity.Project;
-import com.example.gestionmarcheapi.Entity.User;
 import com.example.gestionmarcheapi.Repository.ProjetRepository;
+import com.example.gestionmarcheapi.Repository.TacheRepository;
 import com.example.gestionmarcheapi.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,20 +12,25 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProjetService {
 
     private final ProjetRepository projetRepository;
-
-    public Project CreateProject(Project project){
-        return projetRepository.save(project);
+    public ProjectDTO CreateProject(ProjectDTO projectDTO){
+        Project project = new Project();
+        project.setDateDebut(projectDTO.getDateDebut());
+        project.setDateFin(projectDTO.getDateFin());
+        project.setBudget(projectDTO.getBudget());
+        project.setStatusProject(projectDTO.getStatusProject());
+        project.setNom(projectDTO.getNom());
+        project.setDescription(projectDTO.getDescription());
+        projetRepository.save(project);
+        return projectDTO;
     }
-
     public Project UpdateProject(Integer idProject,Project project){
         Project p = projetRepository.findById(idProject)
                 .orElseThrow(() -> new IllegalStateException("Project not found with id: " + idProject));
@@ -72,7 +78,7 @@ public class ProjetService {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
 
-            if(user.getRole().getLibelle().equals("Chef de projet") || user.getRole().getLibelle().equals("Directeur")){
+            if(user.getRole().getLibelle().equals("Chef de service") || user.getRole().getLibelle().equals("Directeur")){
                 project.setBudget(budget);
                 return projetRepository.save(project);
             }
@@ -96,5 +102,67 @@ public class ProjetService {
 
         return projetRepository.save(project);
     }
+    public List<Project> ListerProjetParStatut(StatusProject statusProject){
+        return projetRepository.findByStatusProject(statusProject);
+    }
+
+    public List<Project> ListerProjetParDate(Date date){
+        return projetRepository.findProjectsInDateRange(date);
+    }
+
+    private final TacheRepository tacheRepository;
+    public Project assignTasksToProject(Integer idProject, List<Integer> idTasks) {
+        Project project = projetRepository.findById(idProject)
+                .orElseThrow(() -> new IllegalStateException("Project not found with id: " + idProject));
+
+        List<Tache> tasks = tacheRepository.findAllById(idTasks);
+
+        tasks.forEach(task -> task.setProject(project));
+
+        project.setTasks(tasks);
+
+        tacheRepository.saveAll(tasks);
+
+        return projetRepository.save(project);
+    }
+
+    public List<Project> findByBudget(Double budget){
+        return projetRepository.findByBudget(budget);
+    }
+
+    public Project AssignUsersToProject(Integer idProject,List<Integer> idUsers){
+        Project project = projetRepository.findById(idProject)
+                .orElseThrow(() -> new IllegalStateException("Project not found with id: " + idProject));
+
+        List<User> users = userRepository.findAllById(idUsers);
+
+        for(User user:users){
+            user.getProjects().add(project);
+        }
+
+        for (User user:users) {
+            if(user.getRole().getLibelle().equals("Chef de service")){
+                project.setChefService(user);
+            }
+            else if(user.getRole().getLibelle().equals("Directeur")){
+                project.setDirecteur(user);
+            }
+        }
+        List<User> employees = users.stream()
+                .filter(user -> user.getRole().getLibelle().equals("Employe"))
+                .collect(Collectors.toList());
+        project.setEmployees(employees);
+
+        userRepository.saveAll(users);
+
+        return projetRepository.save(project);
+    }
+
+   public List<Project> getProjectsByUser(Integer idUser){
+        User user=userRepository.findById(idUser)
+                .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
+        return user.getProjects();
+    }
+
 
 }

@@ -24,7 +24,4 @@ public class Service {
     @JoinColumn(name = "idChefService")
     private User chefService;
 
-    @ManyToOne
-    @JoinColumn(name = "idEntreprise")
-    private Entreprise entreprise;
 }

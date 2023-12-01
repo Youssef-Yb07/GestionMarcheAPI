@@ -1,5 +1,6 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,12 +17,8 @@ public class Market {
 
     private String description;
 
-   @ManyToOne
-   @JoinColumn(name = "idEntreprise")
-   private Entreprise entreprise;
-
    @OneToOne
    @JoinColumn(name = "idProject")
-   @JsonManagedReference
+   @JsonIgnore
    private Project project;
 }

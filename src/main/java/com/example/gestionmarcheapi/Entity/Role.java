@@ -1,8 +1,10 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -14,4 +16,8 @@ public class Role {
 
     @Column
     private String libelle;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "role")
+    List<User> users;
 }

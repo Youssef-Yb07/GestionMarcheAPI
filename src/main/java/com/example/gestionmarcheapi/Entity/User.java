@@ -7,10 +7,9 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.List;
-
 @Entity
 @Data
-public class User {
+public class    User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,7 @@ public class User {
 
     private String password;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name ="idRole")
     private Role role;
 
@@ -45,6 +44,5 @@ public class User {
     @OneToOne
     @JoinColumn(name = "idCommentaire")
     private Commentaire commentaire;
-
 
 }

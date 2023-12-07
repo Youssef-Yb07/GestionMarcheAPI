@@ -137,23 +137,20 @@ public class ProjetService {
 
         List<User> users = userRepository.findAllById(idUsers);
 
-        for(User user:users){
-            user.getProjects().add(project);
-        }
-
         for (User user:users) {
+
+            user.getProjects().add(project);
+
             if(user.getRole().getLibelle().equals("Chef de service")){
                 project.setChefService(user);
             }
             else if(user.getRole().getLibelle().equals("Directeur")){
                 project.setDirecteur(user);
             }
+            else if(user.getRole().getLibelle().equals("Employe")){
+                project.getEmployees().add(user);
+            }
         }
-        List<User> employees = users.stream()
-                .filter(user -> user.getRole().getLibelle().equals("Employe"))
-                .collect(Collectors.toList());
-        project.setEmployees(employees);
-
         userRepository.saveAll(users);
 
         return projetRepository.save(project);
@@ -164,6 +161,5 @@ public class ProjetService {
                 .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
         return user.getProjects();
     }
-
 
 }

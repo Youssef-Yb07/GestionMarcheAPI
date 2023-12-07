@@ -4,6 +4,7 @@ import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
 import com.example.gestionmarcheapi.Entity.Project;
 import com.example.gestionmarcheapi.Entity.DTO.ProjectDTO;
 import com.example.gestionmarcheapi.Entity.ResponseData;
+import com.example.gestionmarcheapi.Entity.User;
 import com.example.gestionmarcheapi.Service.ProjetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

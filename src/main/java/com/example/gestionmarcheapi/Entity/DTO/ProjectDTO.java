@@ -18,7 +18,7 @@ public class ProjectDTO {
     private String description;
 
     private Date dateDebut;
-
+    
     private Date dateFin;
 
     private Double budget;

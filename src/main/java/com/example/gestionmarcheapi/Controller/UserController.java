@@ -63,4 +63,21 @@ public class UserController {
         return new ResponseEntity<>(deleteAllUsers, HttpStatus.OK);
     }
 
+    @Operation(summary = "Récupérer les directeurs non affectés à un projet",description = "Récupérer les directeurs non affectés à un projet")
+    @GetMapping("/get/director/not/affected")
+    public ResponseEntity<List<User>>getDirectorNotAffectedInProject(){
+        return new ResponseEntity<>(userService.getDirectorNotAffectedInProject(),HttpStatus.OK);
+    }
+    @Operation(summary = "Récupérer les chefs de service non affectés à un projet",description = "Récupérer les chefs de service non affectés à un projet")
+    @GetMapping("/get/chiefService/not/affected")
+    public ResponseEntity<List<User>>getChiefServicesNotAffectedInProjects(){
+        return new ResponseEntity<>(userService.getChiefServiceNotAffectedInProject(),HttpStatus.OK);
+    }
+
+    @Operation(summary = "Récupérer la liste des employés",description = "Récupérer les Employés")
+    @GetMapping("/get/Employees")
+    public ResponseEntity<List<User>>getUsersByRole(){
+        return new ResponseEntity<>(userService.getEmployees(),HttpStatus.OK);
+    }
+
 }

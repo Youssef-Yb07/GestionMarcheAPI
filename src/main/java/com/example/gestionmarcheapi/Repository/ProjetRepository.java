@@ -2,6 +2,7 @@ package com.example.gestionmarcheapi.Repository;
 
 import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
 import com.example.gestionmarcheapi.Entity.Project;
+import com.example.gestionmarcheapi.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

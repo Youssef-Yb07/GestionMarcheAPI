@@ -77,4 +77,31 @@ public class UserService {
             throw new EntityNotFoundException("NO user has been found !");
         }
     }
+
+    public List<User> getDirectorNotAffectedInProject() {
+        List<User> users = userRepository.getDirectorsNotAffectedInProjects();
+
+        if (users.isEmpty()) {
+            throw new IllegalStateException("Aucun directeur n'est disponible");
+        }
+
+        return users;
+    }
+
+    public List<User> getChiefServiceNotAffectedInProject(){
+        List<User> users = userRepository.getChiefServicesNotAffectedInProjects();
+
+        if (users.isEmpty()) {
+            throw new IllegalStateException("Aucun chef de service n'est disponible");
+        }
+
+        return users;
+    }
+    public List<User> getEmployees(){
+        List<User> users = userRepository.getAllEmployees();
+        if (users.isEmpty()) {
+            throw new IllegalStateException("Aucun utilisateur n'est disponible");
+        }
+        return users;
+    }
 }

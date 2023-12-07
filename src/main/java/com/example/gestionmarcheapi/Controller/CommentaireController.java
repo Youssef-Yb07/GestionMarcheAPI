@@ -3,6 +3,7 @@ package com.example.gestionmarcheapi.Controller;
 import com.example.gestionmarcheapi.Entity.Commentaire;
 import com.example.gestionmarcheapi.Service.CommentaireService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/commentaires")
+@Tag(name = "Commentaires", description = "gestion des commentaires")
 public class CommentaireController {
 
     private final CommentaireService commentaireService;

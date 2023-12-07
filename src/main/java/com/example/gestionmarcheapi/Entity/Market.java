@@ -17,8 +17,8 @@ public class Market {
 
     private String description;
 
-   @OneToOne
+  /* @OneToOne
    @JoinColumn(name = "idProject")
    @JsonIgnore
-   private Project project;
+   private Project project;*/
 }

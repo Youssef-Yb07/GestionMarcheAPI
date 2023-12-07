@@ -1,6 +1,7 @@
 package com.example.gestionmarcheapi.Entity;
 
 import com.example.gestionmarcheapi.Entity.Enumerations.EtatCommentaire;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Commentaire {
     @Enumerated(EnumType.STRING)
     private EtatCommentaire etat;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idTask")
     private Tache task;

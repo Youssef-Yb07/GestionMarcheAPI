@@ -5,6 +5,8 @@ import com.example.gestionmarcheapi.Repository.MarketRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Data
 public class MarketService {
@@ -13,5 +15,9 @@ public class MarketService {
 
     public Market CreateMarket(Market market){
         return marketRepository.save(market);
+    }
+
+    public List<Market> GetMarketList(){
+        return marketRepository.findAll();
     }
 }

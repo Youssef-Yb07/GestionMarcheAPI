@@ -14,6 +14,8 @@
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer idTask ;
 
+        private String libelle;
+
         private Date deadline;
 
         private String description;

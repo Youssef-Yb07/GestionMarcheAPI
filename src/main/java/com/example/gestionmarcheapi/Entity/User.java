@@ -1,8 +1,10 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -36,8 +38,10 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "idService")
+    @JsonBackReference
     private Service service;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "idCommentaire")
     private Commentaire commentaire;

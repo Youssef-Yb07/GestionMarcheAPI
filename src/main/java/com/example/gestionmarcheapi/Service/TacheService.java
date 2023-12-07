@@ -3,6 +3,7 @@ package com.example.gestionmarcheapi.Service;
 import com.example.gestionmarcheapi.Entity.Enumerations.StateTask;
 import com.example.gestionmarcheapi.Entity.Tache;
 import com.example.gestionmarcheapi.Repository.TacheRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,7 @@ public class TacheService {
             return tacheRepository.save(task);
         }
         else{
-            throw new IllegalStateException("Task not found");
+            throw new EntityNotFoundException("Task not found");
         }
     }
     public Tache UpdateStateTask(int idTask, StateTask stateTask){
@@ -62,7 +63,7 @@ public class TacheService {
             return tacheRepository.save(tache);
         }
         else {
-            throw new IllegalStateException("Task Not Found !!");
+            throw new EntityNotFoundException("Task Not Found !!");
         }
     }
 

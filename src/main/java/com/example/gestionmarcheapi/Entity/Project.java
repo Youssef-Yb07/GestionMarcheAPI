@@ -43,9 +43,9 @@ public class Project {
     @Column(name = "CDC", columnDefinition = "MediumBlob")
     private byte[] CDC_file;
 
-    private String fileName;
-
+    @JsonIgnore
     private String fileType;
+    private String fileName;
 
     @ManyToMany
     @JoinTable(

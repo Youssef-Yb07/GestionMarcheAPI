@@ -1,7 +1,9 @@
 package com.example.gestionmarcheapi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Service {
     private String libelle;
 
     @OneToMany(mappedBy = "service")
+    @JsonManagedReference
     private List<User> employees;
 
     @OneToOne

@@ -10,16 +10,15 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("markets")
 @RequiredArgsConstructor
-@Tag(name = "Marché", description = "Gestion des marchés")
+@Tag(name = "Marchés", description = "Gestion des marchés")
 public class MarketController {
 
     private final MarketService marketService;
@@ -29,14 +28,19 @@ public class MarketController {
             @ApiResponse(responseCode = "201", description = "Marché created successfully"),
             @ApiResponse(responseCode = "400",description = "Invalid request")
     })
-    @PostMapping
-    public ResponseEntity<Market> CreateMarket(Market market){
+    @PostMapping("/create")
+    public ResponseEntity<Market> CreateMarket(@RequestBody Market market){
         try{
             return new ResponseEntity<>(marketService.CreateMarket(market), HttpStatus.CREATED);
         }catch(Exception e){
          e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<List<Market>> GetMarket(){
+        return new ResponseEntity<>(marketService.GetMarketList(), HttpStatus.OK);
     }
 
 }

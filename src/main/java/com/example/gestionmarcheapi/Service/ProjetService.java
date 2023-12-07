@@ -28,6 +28,7 @@ public class ProjetService {
         project.setStatusProject(projectDTO.getStatusProject());
         project.setNom(projectDTO.getNom());
         project.setDescription(projectDTO.getDescription());
+        project.setMarket(projectDTO.getMarket());
         projetRepository.save(project);
         return projectDTO;
     }

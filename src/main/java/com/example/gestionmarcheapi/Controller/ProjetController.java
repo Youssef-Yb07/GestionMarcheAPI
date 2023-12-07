@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import static org.springframework.http.MediaType.TEXT_PLAIN;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("projets")
@@ -84,7 +86,7 @@ public class ProjetController {
 
 
     @Operation(summary = "Upload un fichier CDC", description = "Upload un fichier CDC")
-    @PostMapping(value = "/upload/cdc", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/upload/cdc", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.TEXT_PLAIN_VALUE })
     public ResponseEntity<Project> uploadCDCFile(@RequestParam Integer IdProject, @RequestPart(value = "file") MultipartFile file) {
 
         try {
@@ -112,25 +114,25 @@ public class ProjetController {
     }
 
     @Operation(summary = "Lister les projets par statut", description = "Lister les projets par statut")
-    @GetMapping(value = "/get/etat")
+    @GetMapping(value = "/get/by/etat")
     public ResponseEntity<List<Project>> ListerProjetParStatut(@RequestParam StatusProject statusProject) {
         return new ResponseEntity<>(projetService.ListerProjetParStatut(statusProject), HttpStatus.OK);
     }
 
     @Operation(summary = "Lister les projets par date", description = "Lister les projets par date")
-    @GetMapping(value = "/get/date")
+    @GetMapping(value = "/get/by/date")
     public ResponseEntity<List<Project>> ListerProjetParDate(@RequestParam Date date) {
         return new ResponseEntity<>(projetService.ListerProjetParDate(date), HttpStatus.OK);
     }
 
     @Operation(summary = "Assigner des tâches à un projet", description = "Assigner des tâches à un projet")
-    @PatchMapping(value = "/assign/tasks")
+    @PatchMapping(value = "/assign/by/tasks")
     public ResponseEntity<Project> AssignerTachesAProjet(@RequestParam Integer idProject, @RequestParam List<Integer> idTasks) {
         return new ResponseEntity<>(projetService.assignTasksToProject(idProject, idTasks), HttpStatus.OK);
     }
 
     @Operation(summary = "Lister les projets par budget", description = "Lister les projets par budget")
-    @GetMapping(value = "/get/budget")
+    @GetMapping(value = "/get/by/budget")
     public ResponseEntity<List<Project>> ListerProjetParBudget(@RequestParam Double budget) {
         return new ResponseEntity<>(projetService.findByBudget(budget), HttpStatus.OK);
     }
@@ -141,7 +143,7 @@ public class ProjetController {
     }
 
     @Operation(summary = "Récupérer les projets par utilisateur",description = "Lister les projets par utilisateur")
-    @GetMapping("/get/projects/user")
+    @GetMapping("/get/by/user")
     public ResponseEntity<List<Project>>getProjectsByUser(@RequestParam Integer idUser){
         return new ResponseEntity<>(projetService.getProjectsByUser(idUser),HttpStatus.OK);
     }

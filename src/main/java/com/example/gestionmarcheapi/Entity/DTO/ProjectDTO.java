@@ -1,6 +1,7 @@
 package com.example.gestionmarcheapi.Entity.DTO;
 
 import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
+import com.example.gestionmarcheapi.Entity.Market;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class ProjectDTO {
     private Date dateFin;
 
     private Double budget;
+
+    private Market market;
 
     @Enumerated(EnumType.STRING)
     private StatusProject statusProject;

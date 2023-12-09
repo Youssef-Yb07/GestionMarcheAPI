@@ -205,4 +205,20 @@ public class ProjetService {
                 .collect(Collectors.groupingBy(project -> project.getStatusProject().name(), Collectors.counting()));
     }
 
+    public Map<String,Integer> getNumberOfEmployeesByProject(){
+        Map<String,Integer> map = new HashMap<>();
+        for(Project project:projetRepository.findAll()){
+            map.put(project.getNom(),project.getEmployees().size());
+        }
+        return map;
+    }
+
+    public Map<String,Integer> getNumberOfTasksByProject(){
+        Map<String,Integer> map = new HashMap<>();
+        for(Project project:projetRepository.findAll()){
+            map.put(project.getNom(),project.getTasks().size());
+        }
+        return map;
+    }
+
 }

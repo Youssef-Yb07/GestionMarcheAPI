@@ -168,5 +168,16 @@ public class ProjetController {
     public ResponseEntity<Map<String, Long>> getProjectCountByStatus() {
         return new ResponseEntity<>(projetService.getProjetCountByStatus(), HttpStatus.OK);
     }
+    @Operation(summary = "Récupérer le nombre d'employés par projet", description = "Récupérer le nombre d'employés par projet")
+    @GetMapping("/get/count/by/employee")
+    public ResponseEntity<Map<String, Integer>> getNumberOfEmployeesByProject() {
+        return new ResponseEntity<>(projetService.getNumberOfEmployeesByProject(), HttpStatus.OK);
+    }
+    @Operation(summary = "Récupérer le nombre de tâches par projet", description = "Récupérer le nombre de tâches par projet")
+    @GetMapping("/get/count/by/task")
+    public ResponseEntity<Map<String, Integer>> getNumberOfTasksByProject() {
+        return new ResponseEntity<>(projetService.getNumberOfTasksByProject(), HttpStatus.OK);
+    }
+
 
 }

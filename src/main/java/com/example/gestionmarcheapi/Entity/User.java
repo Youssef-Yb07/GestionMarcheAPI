@@ -35,11 +35,6 @@ public class    User {
     @JsonIgnore
     private List<Project> projects;
 
-    @ManyToOne
-    @JoinColumn(name = "idService")
-    @JsonBackReference
-    private Service service;
-
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "idCommentaire")

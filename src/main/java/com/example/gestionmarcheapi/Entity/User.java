@@ -45,4 +45,8 @@ public class    User {
     @JoinColumn(name = "idCommentaire")
     private Commentaire commentaire;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "employee")
+    private List<Tache> taches;
+
 }

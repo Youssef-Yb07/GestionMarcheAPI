@@ -1,5 +1,7 @@
 package com.example.gestionmarcheapi.Controller;
 
+import com.example.gestionmarcheapi.Entity.DTO.AuthDTO;
+import com.example.gestionmarcheapi.Entity.DTO.ResponseAuthDTO;
 import com.example.gestionmarcheapi.Entity.User;
 import com.example.gestionmarcheapi.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,6 +80,20 @@ public class UserController {
     @GetMapping("/get/Employees")
     public ResponseEntity<List<User>>getUsersByRole(){
         return new ResponseEntity<>(userService.getEmployees(),HttpStatus.OK);
+    }
+
+    @Operation(summary = "Authentification",description = "Authentification d'un utilisateur")
+    @PostMapping("/auth")
+    public ResponseEntity<ResponseAuthDTO> auth(@RequestBody AuthDTO authDTO){
+        return new ResponseEntity<>(userService.Athentication(authDTO),HttpStatus.OK);
+    }
+    @GetMapping("/get/Employees/by/project/{idProject}")
+    public ResponseEntity<List<User>>getEmployeesByProject(@PathVariable Integer idProject){
+        return new ResponseEntity<>(userService.getEmployeesByProject(idProject),HttpStatus.OK);
+    }
+    @GetMapping("/get/Employees/not/member/in/project/{idProject}")
+    public ResponseEntity<List<User>>getEmployeesNotMemberInProject(@PathVariable Integer idProject){
+        return new ResponseEntity<>(userService.getEmployeesNotMemberInProject(idProject),HttpStatus.OK);
     }
 
 }

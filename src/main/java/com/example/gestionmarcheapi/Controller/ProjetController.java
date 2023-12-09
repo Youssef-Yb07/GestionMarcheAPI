@@ -4,7 +4,6 @@ import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
 import com.example.gestionmarcheapi.Entity.Project;
 import com.example.gestionmarcheapi.Entity.DTO.ProjectDTO;
 import com.example.gestionmarcheapi.Entity.ResponseData;
-import com.example.gestionmarcheapi.Entity.User;
 import com.example.gestionmarcheapi.Service.ProjetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,9 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.nio.file.FileSystemException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-
-import static org.springframework.http.MediaType.TEXT_PLAIN;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -143,10 +141,32 @@ public class ProjetController {
         return new ResponseEntity<>(projetService.AssignUsersToProject(idProject,idUsers),HttpStatus.OK);
     }
 
-    @Operation(summary = "Récupérer les projets par utilisateur",description = "Lister les projets par utilisateur")
+    /*@Operation(summary = "Récupérer les projets par utilisateur",description = "Lister les projets par utilisateur")
     @GetMapping("/get/by/user")
     public ResponseEntity<List<Project>>getProjectsByUser(@RequestParam Integer idUser){
         return new ResponseEntity<>(projetService.getProjectsByUser(idUser),HttpStatus.OK);
+    }*/
+    @Operation(summary = "Récupérer les projets par directeur ou par chef de service",description = "Lister les projets par directeur ou chef de service")
+    @GetMapping("/get/by")
+    public ResponseEntity<Project>GetProjectByDirecteurOrChefService(@RequestParam Integer idUser){
+        return new ResponseEntity<>(projetService.GetProjectByDirecteurOrChefService(idUser),HttpStatus.OK);
+    }
+
+    @Operation(summary = "Supprimer un employé d'un projet", description = "Supprimer un employé d'un projet")
+    @PatchMapping(value = "/delete/employe")
+    public ResponseEntity<Project> deleteEmployeFromProject(@RequestParam Integer idProject, @RequestParam Integer idEmploye) {
+        return new ResponseEntity<>(projetService.deleteEmployeFromProject(idProject, idEmploye), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Récupérer les projets par utilisateur",description = "Lister les projets par utilisateur")
+    @GetMapping("/get/by/employee/{idUser}")
+    public ResponseEntity<List<Project>>getProjectsByEmloyee(@PathVariable Integer idUser){
+        return new ResponseEntity<>(projetService.getprojectsByEmloyee(idUser),HttpStatus.OK);
+    }
+    @Operation(summary = "Récupérer le nombre de projets par état", description = "Récupérer le nombre de projets par état")
+    @GetMapping("/get/count/by/status")
+    public ResponseEntity<Map<String, Long>> getProjectCountByStatus() {
+        return new ResponseEntity<>(projetService.getProjetCountByStatus(), HttpStatus.OK);
     }
 
 }

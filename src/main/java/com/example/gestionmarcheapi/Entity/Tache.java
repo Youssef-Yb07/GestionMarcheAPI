@@ -33,4 +33,9 @@
         @OneToMany(mappedBy = "task")
         private List<Commentaire> commentaires;
 
+        @ManyToOne
+        @JoinColumn(name = "idEmployee")
+        private User employee;
+
+
     }

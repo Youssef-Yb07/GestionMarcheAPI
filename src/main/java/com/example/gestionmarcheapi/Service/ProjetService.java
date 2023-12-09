@@ -64,7 +64,7 @@ public class ProjetService {
        }
     }
 
-    public Project updateStatusProjet(Integer idProject,StatusProject statusProject){
+    public Project updateStatusProjet(Integer idProject, StatusProject statusProject){
         Project project = projetRepository.findById(idProject)
                 .orElseThrow(() -> new IllegalStateException("Project not found with id: " + idProject));
             project.setStatusProject(statusProject);
@@ -156,10 +156,53 @@ public class ProjetService {
         return projetRepository.save(project);
     }
 
-   public List<Project> getProjectsByUser(Integer idUser){
+   /*public List<Project> getProjectsByUser(Integer idUser){
         User user=userRepository.findById(idUser)
                 .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
         return user.getProjects();
+    }*/
+    public Project GetProjectByDirecteurOrChefService(Integer idUser){
+        User user=userRepository.findById(idUser)
+                .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
+        for(Project project:projetRepository.findAll()){
+            if(project.getChefService().getIdUser().equals(user.getIdUser()) || project.getDirecteur().getIdUser().equals(user.getIdUser())){
+                return project;
+            }
+        }
+        throw new IllegalStateException("Vous n'avez pas le droit d'effectuer cette action");
+    }
+
+    public Project deleteEmployeFromProject(Integer idProject,Integer idEmp){
+        Project project = projetRepository.findById(idProject)
+                .orElseThrow(() -> new IllegalStateException("Project not found with id: " + idProject));
+        User user = userRepository.findById(idEmp)
+                .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idEmp));
+        if(user.getRole().getLibelle().equals("Employe")){
+            project.getEmployees().remove(user);
+            return projetRepository.save(project);
+        }
+        else{
+            throw new IllegalStateException("Vous n'avez pas le droit d'effectuer cette action");
+        }
+    }
+
+    public List<Project> getprojectsByEmloyee(Integer idUser){
+        User user=userRepository.findById(idUser)
+                .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
+        List<Project> projects=new ArrayList<>();
+        for(Project project:projetRepository.findAll()){
+            if(project.getEmployees().contains(user)){
+                projects.add(project);
+            }
+        }
+        return projects;
+    }
+
+    public Map<String, Long> getProjetCountByStatus() {
+        List<Project> projets = projetRepository.findAll();
+
+        return projets.stream()
+                .collect(Collectors.groupingBy(project -> project.getStatusProject().name(), Collectors.counting()));
     }
 
 }

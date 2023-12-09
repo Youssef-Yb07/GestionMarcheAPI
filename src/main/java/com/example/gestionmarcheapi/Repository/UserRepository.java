@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> getChiefServicesNotAffectedInProjects();
     @Query("SELECT u FROM User u JOIN Role r ON u.role.idRole = r.idRole WHERE r.libelle = 'Employé'")
     List<User> getAllEmployees();
+    User findByEmailAndPassword(String email, String password);
+
 }

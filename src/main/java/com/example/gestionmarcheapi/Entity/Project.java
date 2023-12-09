@@ -1,9 +1,7 @@
 package com.example.gestionmarcheapi.Entity;
 
 import com.example.gestionmarcheapi.Entity.Enumerations.StatusProject;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -46,6 +44,7 @@ public class Project {
     @JsonIgnore
     private String fileType;
     private String fileName;
+
 
     @ManyToMany
     @JoinTable(

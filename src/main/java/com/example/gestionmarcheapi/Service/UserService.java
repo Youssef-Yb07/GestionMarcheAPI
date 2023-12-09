@@ -1,12 +1,17 @@
 package com.example.gestionmarcheapi.Service;
 
+import com.example.gestionmarcheapi.Entity.DTO.AuthDTO;
+import com.example.gestionmarcheapi.Entity.DTO.ResponseAuthDTO;
+import com.example.gestionmarcheapi.Entity.Project;
 import com.example.gestionmarcheapi.Entity.User;
+import com.example.gestionmarcheapi.Repository.ProjetRepository;
 import com.example.gestionmarcheapi.Repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,5 +108,49 @@ public class UserService {
             throw new IllegalStateException("Aucun utilisateur n'est disponible");
         }
         return users;
+    }
+
+    public ResponseAuthDTO Athentication(AuthDTO authDTO){
+        String email = authDTO.getEmail();
+        String password = authDTO.getPassword();
+        User user = userRepository.findByEmailAndPassword(email, password);
+        if(user == null) {
+            throw new IllegalStateException("Email ou mot de passe incorrect");
+        }
+        ResponseAuthDTO responseAuthDTO = new ResponseAuthDTO();
+        responseAuthDTO.setIdUser(user.getIdUser());
+        responseAuthDTO.setRoleName(user.getRole().getLibelle());
+        return responseAuthDTO;
+    }
+
+    private final ProjetRepository projetRepository;
+    public List<User> getEmployeesByProject(Integer idProject) {
+        Project project =projetRepository.findById(idProject)
+                .orElseThrow(() -> new IllegalStateException("Le projet n'existe pas"));
+
+        List<User> users = new ArrayList<>();
+
+        if(project.getEmployees()!=null){
+            users = project.getEmployees();
+        }
+        return users;
+    }
+
+    public List<User> getEmployeesNotMemberInProject(Integer idProject){
+        Project project =projetRepository.findById(idProject)
+                .orElseThrow(() -> new IllegalStateException("Le projet n'existe pas"));
+
+        List<User> users = new ArrayList<>();
+
+        if(project.getEmployees()!=null){
+            users = project.getEmployees();
+        }
+        List<User> usersNotMember = new ArrayList<>();
+        for(User user:userRepository.getAllEmployees()){
+            if(!users.contains(user)){
+                usersNotMember.add(user);
+            }
+        }
+        return usersNotMember;
     }
 }

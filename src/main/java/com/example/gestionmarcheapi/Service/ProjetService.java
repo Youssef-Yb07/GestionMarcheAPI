@@ -221,4 +221,21 @@ public class ProjetService {
         return map;
     }
 
+    public Map<String, Long> countTasksByEmployeeInProjects(Integer idUser) {
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new IllegalStateException("Utilisateur inexistant avec l'ID : " + idUser));
+
+        Map<String, Long> tasksCountByProject =new HashMap<>();
+
+        // Récupérer la liste des projets de l'utilisateur
+        List<Project> projects = getprojectsByEmloyee(user.getIdUser());
+
+        tasksCountByProject = projects.stream()
+                .flatMap(project -> project.getTasks().stream())
+                .collect(Collectors.groupingBy(tache -> tache.getProject().getNom(),
+                        Collectors.counting()));
+
+        return tasksCountByProject;
+    }
+
 }

@@ -179,5 +179,11 @@ public class ProjetController {
         return new ResponseEntity<>(projetService.getNumberOfTasksByProject(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Récupérer le nombre de tâches par employé dans les projets", description = "Récupérer le nombre de tâches par employé dans les projets")
+    @GetMapping("/get/count/by/task/employee/{idEmployee}")
+    public ResponseEntity<Map<String, Long>> countTasksByEmployeeInProjects(@PathVariable Integer idEmployee){
+        return new ResponseEntity<>(projetService.countTasksByEmployeeInProjects(idEmployee), HttpStatus.OK);
+    }
+
 
 }

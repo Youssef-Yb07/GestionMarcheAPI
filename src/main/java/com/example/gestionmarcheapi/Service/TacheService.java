@@ -153,4 +153,6 @@ public class TacheService {
                 .collect(Collectors.groupingBy(tache -> tache.getEtat().name(), Collectors.counting()));
     }
 
+
+
 }
